@@ -8,7 +8,9 @@ function usersFetch(){
 
 function* workGetUsersFetch(){
     const users = yield call(usersFetch);
+    console.log("users");
     yield put({type: GET_USERS_SUCCESS, users })
+    
 
 }
 
