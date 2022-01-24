@@ -9,6 +9,7 @@ function App(){
         <div>
              <button onClick={() => dispatch(getUsersFetch())}>User Name</button>
              <div> Users : {users.map((user =>(<div>{user.name}</div>)))}</div> 
+             {/* Add values */}
         </div>
 
      );
