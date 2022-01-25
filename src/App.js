@@ -3,6 +3,8 @@ import React from "react";
 import { useEffect } from "react";
 import {  getUsers } from "./actions";
 import { useSelector, useDispatch } from "react-redux";
+import Button from "./components/button";
+import './App.css';
 
 function App() {
   const dispatch = useDispatch();
@@ -19,7 +21,26 @@ function App() {
       <h1>Welcome to React with Redux Saga </h1>
       {loading && <h2>Loading...</h2>}
       {error && !loading && <h2>{error}</h2>}
-      {users && users.map((user, i) => <h2 key={i}>{user.name}</h2>)}
+      <table border="1">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>NAME</th>
+            <th>EMAIL</th>
+            <th>VIEW</th>
+          </tr>
+        </thead>
+        <tbody>
+          {users.map(u =>
+            <tr key={u.id}>
+              <td>{u.id}</td>
+              <td>{u.name}</td>
+              <td>{u.email}</td>
+              <td><Button/></td>
+            </tr>
+            )}
+        </tbody>
+      </table>
     </div>
   );
 }
