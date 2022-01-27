@@ -1,10 +1,10 @@
 
-import React from "react";
+import React, { useState } from "react";
 import { useEffect } from "react";
 import {  getUsers } from "./actions";
 import { useSelector, useDispatch } from "react-redux";
-import Button from "./components/button";
 import './App.css';
+import Display from "./components/Display";
 
 function App() {
   const dispatch = useDispatch();
@@ -12,6 +12,22 @@ function App() {
   const loading = useSelector((state) => state.users.loading);
   const error = useSelector((state) => state.users.error);
 
+  const [state, setState ] = useState({
+    data: {},
+    isActive: false,
+  });
+
+  const updateState = (u) => {
+    setState(previousState => {
+      return {
+        ...previousState,
+        data: u,
+        isActive: "true"
+      }
+    });
+
+  }
+  
   useEffect(() => {
     dispatch(getUsers());
   }, []);
@@ -36,11 +52,15 @@ function App() {
               <td>{u.id}</td>
               <td>{u.name}</td>
               <td>{u.email}</td>
-              <td><Button/></td>
+              <td><button onClick={()=>updateState(u)}>View</button></td>
             </tr>
             )}
         </tbody>
       </table>
+      <div className="display">
+        {state.isActive && <Display data={state.data}/>}
+        
+      </div>
     </div>
   );
 }
